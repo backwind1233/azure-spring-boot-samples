@@ -1,0 +1,53 @@
+# https://docs.microsoft.com/en-us/azure/spring-cloud/quickstart-deploy-apps?tabs=Azure-CLI&pivots=programming-language-java
+
+
+az configure --defaults group=rg-servicebusapp-bwmkg spring-cloud=asc-sn-gzh-service
+
+az extension update --name spring-cloud
+# create spring-cloud 5 minutes
+az spring-cloud create -n asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# create spring-cloud app
+az spring-cloud app create -n asc-sn-gzh-app-mkv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+az spring-cloud app identity assign -n asc-sn-gzh-app-mkv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# show identity info
+az spring-cloud app identity show -n asc-sn-gzh-app-mkv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+"principalId": "40b02c0b-aca9-45e6-9ae2-0a3c4b7755a9",
+
+tested keyvault
+
+
+--resource-group "rg-mul-keyvault-qlekf" \
+
+ENDPOINT_1=https://kv-mul-keyvault-msqdx.vault.azure.net/
+ENDPOINT_2=https://kv-mul-keyvault-srnxx.vault.azure.net/
+
+
+az role assignment create --assignee "c7883b39-7f82-45b2-be17-284bbb31ea1a" \
+--role "Azure Service Bus Data Owner" \
+--scope "/subscriptions/799c12ba-353c-44a1-883d-84808ebb2216/resourceGroups/rg-servicebusapp-bwmkg/providers/Microsoft.ServiceBus/namespaces/sb-servicebusapp-boxmu"
+
+# deploy
+ az spring-cloud app deploy --env ENDPOINT_1=https://kv-mul-keyvault-msqdx.vault.azure.net/ ENDPOINT_2=https://kv-mul-keyvault-srnxx.vault.azure.net/ \
+ --name asc-sn-gzh-app-mkv \
+ --artifact-path ./target/spring-cloud-azure-starter-keyvault-secrets-sample-multiple-property-source-1.0.0.jar  \
+ --jvm-options="-Xms1024m -Xmx1024m"
+
+
+# log
+az spring-cloud app logs --name asc-sn-gzh-app-mkv \
+                         --resource-group rg-servicebusapp-bwmkg \
+                         --service asc-sn-gzh-service \
+                         --follow
+
+## result
+log from asc
+```
+2022-01-13 01:22:21.522  INFO 1 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2022-01-13 01:22:21.813  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1025 (http) with context path ''
+2022-01-13 01:22:21.899  INFO 1 --- [           main] c.a.s.k.s.s.s.p.s.SampleApplication      : Started SampleApplication in 146.252 seconds (JVM running for 180.505)
+secretNameInKeyVault1: key_vault_secret_01: secret-name-in-key-vault-1: value
+secretNameInKeyVault2: key_vault_secret_02: secret-name-in-key-vault-2: value
+secretNameInKeyVaultBoth: key_vault_secret_common_01: secret-name-in-key-vault-both: value
+
+```

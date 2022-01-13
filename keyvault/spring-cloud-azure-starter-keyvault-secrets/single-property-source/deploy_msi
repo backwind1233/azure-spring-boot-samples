@@ -1,0 +1,51 @@
+# https://docs.microsoft.com/en-us/azure/spring-cloud/quickstart-deploy-apps?tabs=Azure-CLI&pivots=programming-language-java
+
+
+az configure --defaults group=rg-servicebusapp-bwmkg spring-cloud=asc-sn-gzh-service
+
+az extension update --name spring-cloud
+# create spring-cloud 5 minutes
+az spring-cloud create -n asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# create spring-cloud service
+az spring-cloud app create -n asc-sn-gzh-app-kv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+az spring-cloud app identity assign -n asc-sn-gzh-app-kv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+az spring-cloud app identity show -n asc-sn-gzh-app-kv -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+
+c7883b39-7f82-45b2-be17-284bbb31ea1a
+
+
+kv= rg-keyvault-msakp
+kv-keyvault-qqswr
+
+
+c7883b39-7f82-45b2-be17-284bbb31ea1a
+
+
+--resource-group "rg-servicebusapp-bwmkg" \
+
+KEYVAULT_URI = "https://kv-keyvault-qqswr.vault.azure.net/"
+
+
+az role assignment create --assignee "c7883b39-7f82-45b2-be17-284bbb31ea1a" \
+--role "Azure Service Bus Data Owner" \
+--scope "/subscriptions/799c12ba-353c-44a1-883d-84808ebb2216/resourceGroups/rg-servicebusapp-bwmkg/providers/Microsoft.ServiceBus/namespaces/sb-servicebusapp-boxmu"
+
+# deploy
+ az spring-cloud app deploy --env ENDPOINT=https://kv-keyvault-qqswr.vault.azure.net/ \
+ --name asc-sn-gzh-app-kv \
+ --artifact-path ./target/spring-cloud-azure-starter-keyvault-secrets-sample-single-property-source-1.0.0.jar  \
+ --jvm-options="-Xms1024m -Xmx1024m"
+
+# log
+az spring-cloud app logs --name asc-sn-gzh-app-kv \
+                         --resource-group rg-servicebusapp-bwmkg \
+                         --service asc-sn-gzh-service \
+                         --follow
+
+# test
+# test local
+curl -X POST http://localhost:8080/queues?message=hello
+# test asc
+curl -X POST https://asc-sn-gzh-service-asc-sn-gzh-app.azuremicroservices.io/queues?message=hello

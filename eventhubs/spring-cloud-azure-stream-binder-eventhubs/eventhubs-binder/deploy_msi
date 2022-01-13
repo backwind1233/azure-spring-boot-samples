@@ -1,0 +1,56 @@
+# https://docs.microsoft.com/en-us/azure/spring-cloud/quickstart-deploy-apps?tabs=Azure-CLI&pivots=programming-language-java
+
+
+az configure --defaults group=rg-servicebusapp-bwmkg spring-cloud=asc-sn-gzh-service
+
+az extension update --name spring-cloud
+# create spring-cloud 5 minutes
+az spring-cloud create -n asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# create spring-cloud app
+az spring-cloud app create -n asc-sn-gzh-app-blob -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+# az spring-cloud app create -n asc-sn-gzh-app-blob-key -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+az spring-cloud app identity assign -n asc-sn-gzh-app-blob -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# show identity info
+az spring-cloud app identity show -n asc-sn-gzh-app-blob -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+"principalId": "f1c01d8b-a2bb-4a9c-92d7-ff65abd65827",
+
+
+## ENV
+AZURE_STORAGE_ACCOUNT=stblobjiqqk STORAGE_CONTAINER_NAME=blobcontainer
+
+az role assignment create --assignee "f1c01d8b-a2bb-4a9c-92d7-ff65abd65827" \
+--role "Storage Blob Data Contributor" \
+--resource-group
+
+
+# deploy
+ az spring-cloud app deploy --env AZURE_STORAGE_ACCOUNT=stblobjiqqk STORAGE_CONTAINER_NAME=blobcontainer \
+ --name asc-sn-gzh-app-blob \
+ --artifact-path ./target/storage-blob-sample-1.0.0.jar  \
+ --jvm-options="-Xms1024m -Xmx1024m"
+
+
+# log
+az spring-cloud app logs --name asc-sn-gzh-app-blob \
+                         --resource-group rg-servicebusapp-bwmkg \
+                         --service asc-sn-gzh-service \
+                         --follow
+
+## result
+# 如果用msi, 会不会慢;
+curl https://asc-sn-gzh-service-asc-sn-gzh-app-blob.azuremicroservices.io/blob  -d "new message2" -H "Content-Type: text/plain"
+curl -XGET https://asc-sn-gzh-service-asc-sn-gzh-app-blob.azuremicroservices.io/blob
+
+
+log from asc
+```
+works,but too much time;
+
+```
+
+
+
+tenantId: 72f988bf-86f1-41af-91ab-2d7cd011db47
+client-id: 07f86dcc-41b8-4216-af64-fd23bb59cfc1
+client-secret: c2U7Q~Ii9vLAFH9LBT6n3qvCY~t.b1s8oR819

@@ -1,0 +1,47 @@
+# https://docs.microsoft.com/en-us/azure/spring-cloud/quickstart-deploy-apps?tabs=Azure-CLI&pivots=programming-language-java
+
+
+az configure --defaults group=rg-servicebusapp-bwmkg spring-cloud=asc-sn-gzh-service
+
+az extension update --name spring-cloud
+# create spring-cloud 5 minutes
+az spring-cloud create -n asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# create spring-cloud app
+az spring-cloud app create -n asc-sn-gzh-app-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+az spring-cloud app identity assign -n asc-sn-gzh-app-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# show identity info
+az spring-cloud app identity show -n asc-sn-gzh-app-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+"principalId": "6ee78131-b669-445d-8ac3-239fdcd7975a",
+
+
+az role assignment create --assignee "6ee78131-b669-445d-8ac3-239fdcd7975a" \
+--role "Azure Service Bus Data Owner" \
+--scope "/subscriptions/799c12ba-353c-44a1-883d-84808ebb2216/resourceGroups/rg-servicebusapp-bwmkg/providers/Microsoft.ServiceBus/namespaces/sb-servicebusapp-boxmu"
+
+
+## env value
+AZURE_COSMOS_ENDPOINT=https://cosmos-cosmos-sample-ikqsx.documents.azure.com:443/
+
+# deploy
+ az spring-cloud app deploy --env AZURE_COSMOS_ENDPOINT=https://cosmos-cosmos-sample-ikqsx.documents.azure.com:443/ \
+ --name asc-sn-gzh-app-cosmos \
+ --artifact-path ./target/spring-cloud-azure-cosmos-sample-1.0.0.jar                                             \
+ --jvm-options="-Xms1024m -Xmx1024m"
+
+
+# log
+az spring-cloud app logs --name asc-sn-gzh-app-cosmos \
+                         --resource-group rg-servicebusapp-bwmkg \
+                         --service asc-sn-gzh-service \
+                         --follow
+
+## result
+log from asc
+
+https://tuchuan-only-public-gzh.oss-cn-hangzhou.aliyuncs.com/utool/1642037915111.png
+```
+2022-01-13 01:41:31.706  INFO 1 --- [smos-parallel-1] c.azure.identity.DefaultAzureCredential  : Azure Identity => Attempted credential ManagedIdentityCredential returns a token
+2022-01-13 01:41:31.706  INFO 1 --- [smos-parallel-1] c.a.core.credential.SimpleTokenCache     : Acquired a new access token at 1641951692 seconds after expiry. Retry may be attempted after 30 seconds.
+
+```

@@ -1,0 +1,52 @@
+# https://docs.microsoft.com/en-us/azure/spring-cloud/quickstart-deploy-apps?tabs=Azure-CLI&pivots=programming-language-java
+
+
+az configure --defaults group=rg-servicebusapp-bwmkg spring-cloud=asc-sn-gzh-service
+
+az extension update --name spring-cloud
+# create spring-cloud 5 minutes
+az spring-cloud create -n asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# create spring-cloud app
+az spring-cloud app create -n asc-sn-gzh-app-data-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg --assign-identity
+az spring-cloud app identity assign -n asc-sn-gzh-app-data-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+# show identity info
+az spring-cloud app identity show -n asc-sn-gzh-app-data-cosmos -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
+
+principalId": 0fd18aab-572e-48ee-b6ee-445bd50bfecb
+
+
+# ENV
+AZURE_COSMOS_ENDPOINT=https://cosmos-data-cosmos-sample-miacr.documents.azure.com:443/
+COSMOS_DATABASE=cosmos-database
+
+
+--resource-group "rg-mul-keyvault-qlekf" \
+
+AZURE_COSMOS_ENDPOINT=https://cosmos-data-cosmos-sample-miacr.documents.azure.com:443/
+COSMOS_DATABASE=cosmos-database
+
+az role assignment create --assignee "c7883b39-7f82-45b2-be17-284bbb31ea1a" \
+--role "Azure Service Bus Data Owner" \
+--scope "/subscriptions/799c12ba-353c-44a1-883d-84808ebb2216/resourceGroups/rg-servicebusapp-bwmkg/providers/Microsoft.ServiceBus/namespaces/sb-servicebusapp-boxmu"
+
+# deploy
+ az spring-cloud app deploy --env AZURE_COSMOS_ENDPOINT=https://cosmos-data-cosmos-sample-miacr.documents.azure.com:443/ COSMOS_DATABASE=cosmos-database \
+ --name asc-sn-gzh-app-data-cosmos \
+ --artifact-path ./target/spring-cloud-azure-data-cosmos-sample-1.0.0.jar   \
+ --jvm-options="-Xms1024m -Xmx1024m"
+
+
+# log
+az spring-cloud app logs --name asc-sn-gzh-app-data-cosmos \
+                         --resource-group rg-servicebusapp-bwmkg \
+                         --service asc-sn-gzh-service \
+                         --follow
+
+## result
+log from asc
+```
+2022-01-13 01:51:47.884  INFO 1 --- [smos-parallel-1] c.azure.identity.DefaultAzureCredential  : Azure Identity => Attempted credential ManagedIdentityCredential returns a token
+
+....
+
+```

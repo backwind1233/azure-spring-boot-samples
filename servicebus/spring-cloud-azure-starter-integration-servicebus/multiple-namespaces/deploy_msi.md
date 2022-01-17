@@ -13,12 +13,16 @@ az spring-cloud app identity assign -n asc-sn-gzh-app-sbmulns -s asc-sn-gzh-serv
 # show identity info
 az spring-cloud app identity show -n asc-sn-gzh-app-sbmulns -s asc-sn-gzh-service -g rg-servicebusapp-bwmkg
 
-"principalId": "6e7cb84e-7785-4025-8b78-8b72d88b3738",
+"principalId": "1b701909-5a60-4571-897c-d5b8c79908b0",
 
 
 
 ## ENV
-AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-ldltw AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-vlwwg
+
+
+AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-svorx
+AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-owjfc
+
 
 az role assignment create --assignee "f1c01d8b-a2bb-4a9c-92d7-ff65abd65827" \
 --role "Storage Blob Data Contributor" \
@@ -26,9 +30,11 @@ az role assignment create --assignee "f1c01d8b-a2bb-4a9c-92d7-ff65abd65827" \
 
 
 # deploy
- az spring-cloud app deploy --env AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-ldltw AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-vlwwg \
+ az spring-cloud app deploy --env AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-svorx \
+ AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-owjfc \
  --name asc-sn-gzh-app-sbmulns \
- --artifact-path ./target/spring-cloud-azure-starter-integration-sample-servicebus-multiple-namespaces-1.0.0.jar  \
+ --resource-group rg-servicebusapp-bwmkg
+ --artifact-path ./target/*.jar  \
  --jvm-options="-Xms1024m -Xmx1024m"
 
 

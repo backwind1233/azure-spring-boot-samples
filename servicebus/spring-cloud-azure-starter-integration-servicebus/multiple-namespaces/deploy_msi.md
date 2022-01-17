@@ -33,9 +33,19 @@ az role assignment create --assignee "f1c01d8b-a2bb-4a9c-92d7-ff65abd65827" \
  az spring-cloud app deploy --env AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-svorx \
  AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-owjfc \
  --name asc-sn-gzh-app-sbmulns \
- --resource-group rg-servicebusapp-bwmkg
- --artifact-path ./target/*.jar  \
- --jvm-options="-Xms1024m -Xmx1024m"
+ --service asc-sn-gzh-service  \
+ --resource-group rg-servicebusapp-bwmkg  \
+ --artifact-path ./target/*.jar \
+ --jvm-options="-Xms1024m -Xmx1024m" \
+ --verbose
+
+az spring-cloud app deploy --env AZURE_SERVICEBUS_NAMESPACE_01=sb-servicebusapp-svorx ^
+AZURE_SERVICEBUS_NAMESPACE_02=sb-servicebusapp-owjfc ^
+--name asc-sn-gzh-app-sbmulns ^
+--service asc-sn-gzh-service  ^
+--resource-group rg-servicebusapp-bwmkg  ^
+--artifact-path ./target/spring-cloud-azure-starter-integration-sample-servicebus-multiple-namespaces-1.0.0.jar  ^
+--jvm-options="-Xms1024m -Xmx1024m"
 
 
 # log

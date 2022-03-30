@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 source script/export_environment_variables.sh
 
@@ -21,7 +21,7 @@ az keyvault certificate create --vault-name ${KEY_VAULT_NAME} \
 
 # ==== Create Service Principal ====
 if [ ${SERVICE_PRINCIPAL_NAME} ];then
-  SERVICE_PRINCIPAL_SECRET=$(az ad sp create-for-rbac --name ${SERVICE_PRINCIPAL_NAME} | jq -r '.password')
+  SERVICE_PRINCIPAL_SECRET=$(az ad sp create-for-rbac --name ${SERVICE_PRINCIPAL_NAME} --skip-assignment | jq -r '.password')
   sed -i 's#export SERVICE_PRINCIPAL_SECRET=#&'"$SERVICE_PRINCIPAL_SECRET"'#' script/export_environment_variables_of_created_resource.sh
 
   SERVICE_PRINCIPAL_ID=$(az ad sp list --display-name ${SERVICE_PRINCIPAL_NAME} | jq -r '.[0].appId')
@@ -31,8 +31,8 @@ if [ ${SERVICE_PRINCIPAL_NAME} ];then
   sed -i 's#export SERVICE_PRINCIPAL_TETANT=#&'"$SERVICE_PRINCIPAL_TETANT"'#' script/export_environment_variables_of_created_resource.sh
 
   az keyvault set-policy --name ${KEY_VAULT_NAME} --certificate-permission get list \
-     --key-permission get list \
-     --secret-permission get list \
+     --key-permission get \
+     --secret-permission get \
      --spn ${SERVICE_PRINCIPAL_ID} \
      --resource-group ${RESOURCE_GROUP_NAME}
 fi

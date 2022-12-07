@@ -1,4 +1,4 @@
-# OAuth 2.0 Sample for Azure AD Spring Boot Starter client library for Java
+# OAuth 2.0 Sample for Azure AD Spring Boot Starter
 
 ## Key concepts
 This sample illustrates how to use `spring-cloud-azure-starter-active-directory` package to work with OAuth 2.0 and OpenID Connect protocols on Azure. This sample will use Microsoft Graph API to retrieve user information.
@@ -117,11 +117,12 @@ mvn spring-boot:run -Dspring-boot.run.profiles=default,conditional-access
 1. Access http://localhost:8080
 2. Login
 3. Access `Group1 Message` link: success
-4. Access `Group2 Message` link: fail with forbidden error message
-5. Access `Graph Client` link: access token for `Microsoft Graph` will be acquired, and the content of customized **OAuth2AuthorizedClient** instance for `Microsoft Graph` resource will be displayed.
-6. Access `Office Client` link: access token for `Office 365 Management APIs` will be acquired, the content of customized **OAuth2AuthorizedClient** instance for `Office 365 Management APIs` resource will be displayed.
+4. Access `Group2 Message` link: fail with forbidden error message 
+5. Access `Admin Message` link: fail with forbidden error message
+6. Access `Graph Client` link: access token for `Microsoft Graph` will be acquired, and the content of customized **OAuth2AuthorizedClient** instance for `Microsoft Graph` resource will be displayed.
 7. Access `Arm Client` link: page will be redirected to Consent page for on-demand authorization of `user_impersonation` permission in `Azure Service Management` resource. Clicking on `Consent`, access token for `Azure Service Management` will be acquired, the content of customized **OAuth2AuthorizedClient** instance for `Azure Service Management` resource will be displayed.
 8. Access `Obo Client` link: access token for `webapiA` will be acquired, the success or failure of accessing `webapiA` will be displayed.
+9. Access `Client Credential Client` link: success.
 
 ## Troubleshooting
 ### If registered application is multi-tenanted, how to run this sample?

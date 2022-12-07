@@ -1,4 +1,4 @@
-# Stateless authentication filter sample for Azure AD Spring Boot Starter client library for Java
+# Stateless authentication filter sample for Azure AD Spring Boot Starter
 
 ## Key concepts
 
@@ -119,4 +119,3 @@ mvn spring-boot:run
 ## Next steps
 ## Contributing
 <!-- LINKS -->
-

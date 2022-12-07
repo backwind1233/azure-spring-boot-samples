@@ -1,9 +1,20 @@
-# Spring Cloud Azure Storage Queue Operation Code Sample  
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-queue-storage
+name: Sending and Receiving Message by Azure Storage Queue and StorageQueueTemplate in Spring Boot Application
+description: This sample demonstrates how to send and receive message by Azure Storage Queue and StorageQueueTemplate in Spring Boot application.
+---
 
-This code sample demonstrates how to use [Storage Queue Operation][storage-queue-operation].
+# Sending and Receiving Message by Azure Storage Queue and StorageQueueTemplate in Spring Boot Application
+
+This code sample demonstrates how to use [Storage Queue Template][storage-queue-template].
 
 ## What You Will Build
-You will build an application using [Storage Queue Operation][storage-queue-operation] to send and receive messages.
+
+You will build an application using [Storage Queue Template][storage-queue-template] to send and receive messages.
 
 ## What You Need
 
@@ -125,7 +136,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.
@@ -186,4 +197,4 @@ terraform -chdir=terraform destroy -auto-approve
 ```
 
 <!-- LINKS -->
-[storage-queue-operation]: https://github.com/Azure/azure-sdk-for-java/blob/azure-spring-boot_3.6.0/sdk/spring/azure-spring-integration-storage-queue/src/main/java/com/azure/spring/integration/storage/queue/StorageQueueOperation.java
+[storage-queue-template]: https://github.com/Azure/azure-sdk-for-java/blob/spring-integration-azure-storage-queue_4.3.0/sdk/spring/spring-messaging-azure-storage-queue/src/main/java/com/azure/spring/messaging/storage/queue/core/StorageQueueTemplate.java

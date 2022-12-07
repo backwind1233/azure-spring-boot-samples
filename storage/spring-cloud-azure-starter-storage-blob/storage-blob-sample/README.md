@@ -1,4 +1,14 @@
-# Using Spring Cloud Azure Storage Blob Starter
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-blob-storage
+name: Reading and Writing Files Stored in Azure Storage Blob by Spring Resource Abstraction in Spring Boot Application
+description: This sample demonstrates how to read and write files in Azure Storage Blob and Spring Resource abstraction in Spring Boot application.
+---
+
+# Reading and Writing Files Stored in Azure Storage Blob by Spring Resource Abstraction in Spring Boot Application
 
 This code sample demonstrates how to read and write files with the [Spring Resource](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#resources) abstraction for Azure Storage using the Spring Cloud Azure storage starter.
 
@@ -120,7 +130,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.99"
+      version = "3.9.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -71,6 +71,7 @@ resource "azurerm_key_vault" "kv_account" {
 
   tags = {
     "terraform"                 = "true"
+    "application-name"          = var.application_name
     "spring-cloud-azure-sample" = var.sample_tag_value
   }
 }

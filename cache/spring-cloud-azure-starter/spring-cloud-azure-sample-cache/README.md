@@ -1,4 +1,14 @@
-# Spring Cloud Azure Sample redis cache
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-cache-redis
+name: Caching Data to Azure Cache for Redis in Spring Boot Application
+description: This sample demonstrates how to cache data to Azure Cache for Redis in Spring Boot application.
+---
+
+# Caching Data to Azure Cache for Redis in Spring Boot Application
 
 Redis support is based on spring-boot-starter-data-redis, which obtains and
 Automatic configuration of redis properties through Azure Redis Cache Management SDK.
@@ -120,7 +130,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

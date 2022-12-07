@@ -1,4 +1,14 @@
-# Spring Boot application with Azure Active Directory
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-active-directory
+name: Developing a Spring Boot REST API application protected by Azure Active Directory that can check permission by claims in token
+description: This sample demonstrates how to develop a Spring Boot REST API application protected by Azure Active Directory that can check permission by claims in token.
+---
+
+# Developing a Spring Boot REST API Application Protected by Azure Active Directory That Can Check Permission by Claims in Token
 
 ## What You Need
 

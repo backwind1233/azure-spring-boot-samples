@@ -1,4 +1,14 @@
-# Using Spring Integration for Azure Event Hubs
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-event-hubs
+name: Sending and Receiving Message by Azure Event Hubs and Spring Integration in Spring Boot Application
+description: This sample demonstrates how to send and receive message by Azure Event Hubs and Spring Integration in Spring Boot application.
+---
+
+# Sending and Receiving Message by Azure Event Hubs and Spring Integration in Spring Boot Application
 
 This sample demonstrates how to use `Spring Integration` for `Azure Event Hubs`.
 
@@ -133,7 +143,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value. 

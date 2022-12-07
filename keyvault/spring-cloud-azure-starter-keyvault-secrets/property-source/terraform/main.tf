@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.99"
+      version = "3.9.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -70,8 +70,9 @@ resource "azurerm_key_vault" "kv_account_01" {
   }
 
   tags = {
-    "terraform"                 = "true"
-    "spring-cloud-azure-sample" = var.sample_tag_value
+    terraform                 = "true"
+    application-name          = var.application_name
+    spring-cloud-azure-sample = var.sample_tag_value
   }
 }
 
@@ -92,7 +93,7 @@ resource "azurerm_key_vault_secret" "key_vault_secret_common_01" {
 resource "azurecaf_name" "azurecaf_name_kv_02" {
   name          = var.application_name
   resource_type = "azurerm_key_vault"
-  random_length = 5
+  random_length = 4
   clean_input   = true
 }
 
@@ -121,8 +122,9 @@ resource "azurerm_key_vault" "kv_account_02" {
   }
 
   tags = {
-    "terraform"                 = "true"
-    "spring-cloud-azure-sample" = var.sample_tag_value
+    terraform                 = "true"
+    application-name          = var.application_name
+    spring-cloud-azure-sample = var.sample_tag_value
   }
 }
 

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.99"
+      version = "3.9.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -38,6 +38,7 @@ resource "azurecaf_name" "servicebus_01" {
   name          = var.application_name
   resource_type = "azurerm_servicebus_namespace"
   random_length = 5
+  random_seed = 1
   clean_input   = true
 }
 
@@ -50,6 +51,8 @@ resource "azurerm_servicebus_namespace" "servicebus_namespace_01" {
   zone_redundant = false
 
   tags = {
+    "terraform"                 = "true"
+    "application-name"          = var.application_name
     "spring-cloud-azure-sample" = var.sample_tag_value
   }
 }
@@ -83,6 +86,8 @@ resource "azurerm_servicebus_namespace" "servicebus_namespace_02" {
   zone_redundant = false
 
   tags = {
+    "terraform"                 = "true"
+    "application-name"          = var.application_name
     "spring-cloud-azure-sample" = var.sample_tag_value
   }
 }

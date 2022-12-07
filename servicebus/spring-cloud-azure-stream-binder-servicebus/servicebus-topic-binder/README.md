@@ -1,4 +1,14 @@
-# Spring Cloud Azure Stream Binder for Service Bus topic Sample shared library for Java 
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-service-bus
+name: Sending and Receiving Message by Azure Service Bus (Topic) And Spring Cloud Stream Binder in Spring Boot Application
+description: This sample demonstrates how to send and receive message by Azure Service Bus (topic) and Spring Cloud Stream Binder in Spring Boot application.
+---
+
+# Sending and Receiving Message by Azure Service Bus (Topic) And Spring Cloud Stream Binder in Spring Boot Application
 
 
 This code sample demonstrates how to use the Spring Cloud Stream binder for Azure Service Bus topic. The sample app has two operating modes.
@@ -132,7 +142,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

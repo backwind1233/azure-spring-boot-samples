@@ -1,4 +1,14 @@
-# Using Key Vault Secrets With Spring Cloud Azure Key Vault Secrets Starter
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-key-vault
+name: Managing Secrets Stored in Azure Key Vault by Autoconfigured SDK Client in Spring Boot Application
+description: This sample demonstrates how to manage secrets stored in Azure Key Vault by autoconfigured SDK client in Spring Boot application.
+---
+
+# Managing Secrets Stored in Azure Key Vault by Autoconfigured SDK Client in Spring Boot Application
 
 This sample illustrates the simplest usage of `spring-cloud-azure-starter-keyvault-secrets`. 
 To learn all features, please refer to [reference doc](https://microsoft.github.io/spring-cloud-azure/current/reference/html/index.html#secret-management).
@@ -122,7 +132,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

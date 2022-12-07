@@ -1,4 +1,14 @@
-# Using Cosmos DB With CosmosClient
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-cosmos-db
+name: Accessing Azure Cosmos DB With Autoconfigured Cosmosclient in Spring Boot Application
+description: This sample demonstrates how to access Azure Cosmos DB with autoconfigured CosmosClient in Spring Boot application.
+---
+
+# Accessing Azure Cosmos DB With Autoconfigured Cosmosclient in Spring Boot Application
 
 This guide walks you through the process of accessing Azure Cosmos DB with CosmosClient.
 
@@ -122,7 +132,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

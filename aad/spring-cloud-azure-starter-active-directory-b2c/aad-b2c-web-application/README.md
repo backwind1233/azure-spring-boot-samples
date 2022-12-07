@@ -1,4 +1,14 @@
-# Sample for Azure AD B2C Spring Boot client library for Java
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-active-directory-b2c
+name: Developing Spring Boot Web Application Supports Login by Azure Active Directory B2C Account
+description: This sample demonstrates how to develop a Spring Boot web application supports login by Azure Active Directory B2C account.
+---
+
+# Developing Spring Boot Web Application Supports Login by Azure Active Directory B2C Account
 
 ## Key concepts
 This sample illustrates how to use `spring-cloud-azure-starter-active-directory-b2c` package to work with OAuth 2.0 and OpenID Connect protocols with Azure Active Diretory B2C.
@@ -28,13 +38,15 @@ Follow the guide of [AAD B2C user flows creation](https://docs.microsoft.com/azu
 1. Fill in `${AUTHORIZATION_SERVER_BASE_URI}` from **Azure AD B2C** portal `App registrations` blade, select **Endpoints**, copy the base endpoint uri(Global cloud format may looks like
 `https://{your-tenant-name}.b2clogin.com/{your-tenant-name}.onmicrosoft.com`, China Cloud looks like `https://{your-tenant-name}.b2clogin.cn/{your-tenant-name}.partner.onmschina.cn`). 
 
-    **NOTE**: The `spring.cloud.azure.active-directory.b2c.tenant` has been deprecated. Please use `spring.cloud.azure.active-directory.b2c.base-uri` instead.
+    **NOTE**: We could copy `Azure AD B2C OAuth 2.0 token endpoint (v2)` and delete `/<policy-name>/oauth2/v2.0/token`.
 
 2. Select one registered instance under `Applications` from portal, and then:
     1. Fill in `${AZURE_CLIENT_ID}` from `Application ID`.
     2. Fill in `${AZURE_CLIENT_SECRET}` from one of `Keys`.
 3. Add your user flows defined on the Azure Portal under the `user-flows` configuration, which is a map, you can give each user flow a key and the value will be the name of user flow defined in AAD B2C. 
    By default, we use the key `sign-up-or-sign-in` for a **login** user flow and `password-reset` for the **Password reset** type user flow, you can choose to override them.
+
+   **NOTE**: If you override  **password-reset** or **profile-edit** in application.yml, make sure to change  `${PASSWORD_RESET_USER_FLOW_NAME}` or `${PROFILE_EDIT_FLOW_NAME}` to your configured properties in `resources/templates/home.html`.
 4. Fill in `${LOGIN_USER_FLOW_KEY}` with the key of your login user flow, we will use the value `sign-up-or-sign-in` to look up the user-flows map if this property is not provided.   
 5. Replace `${LOGOUT_SUCCESS_URL}` to `http://localhost:8080/login`.
 
@@ -101,4 +113,3 @@ And also available for Amazon, Azure AD, FaceBook, Github, Linkedin and Twitter.
 ## Next steps
 ## Contributing
 <!-- LINKS -->
-

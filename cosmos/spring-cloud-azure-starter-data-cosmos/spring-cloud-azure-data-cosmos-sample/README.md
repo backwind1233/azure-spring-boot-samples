@@ -1,4 +1,14 @@
-# Using Spring Cloud Azure Starter Data Cosmos
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-cosmos-db
+name: Using Azure Cosmos DB by Spring Data in Spring Boot Application
+description: This sample demonstrates how to use Azure Cosmos DB by Spring Data in Spring Boot application.
+---
+
+# Using Azure Cosmos DB by Spring Data in Spring Boot Application
 This guide demonstrates how to use Azure Cosmos DB via Spring Boot Starter `spring-cloud-azure-starter-data-cosmos` to store data in and retrieve data from your Azure Cosmos DB.
 
 ## What You Will Build
@@ -122,7 +132,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

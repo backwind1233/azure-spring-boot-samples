@@ -1,4 +1,4 @@
-# Azure OAuth 2.0 Sample for Azure AD Spring Boot Starter Resource Server client library for Java
+# Azure OAuth 2.0 Sample for Azure AD Spring Boot Starter Resource Server
 
 ## Key concepts
 This sample illustrates how to protect a Java web API by restricting access to its resources to authorized accounts only.
@@ -21,6 +21,7 @@ This sample illustrates how to protect a Java web API by restricting access to i
 1. Under **Manage** In the same tenant, select **App registrations** -> **New registration**.![Protal manage](docs/image-protal-manage.png "Protal manage")
 1. The registered application name is filled into `webapiB`(For better distinguish between [Resource Server] and [Resource Server Obo], this application is named **webapiB**), select **Accounts in this organizational directory only**, click the **register** button.![Register a web api](docs/image-register-a-web-api.png "Register a web api")
 1. Under **webapiB** application, select **Certificates & secrets** -> **new client secret**, expires select **Never**, click the **add** button, remember to save the secrets here and use them later.![Creat secrets](docs/image-creat-secrets-api.png "Creat secrets")
+1. Under **webapiB** application, select **API permissions** -> **Grant admin consent for ...**, then choose **Yes** for save.
 1. Under **webapiB** application, select **Expose an API** -> **Add a scope**, Use the default Application ID URI, click **Save and continue** button.![Set application id url](docs/image-set-application-id-url.png "Set application id url")
 1. Wait the page refresh finished. Then set the **Scope name** to `WebApiB.ExampleScope`.![Add a scope](docs/image-add-a-scope.png "Add a scope")
 1. Finally, the api exposed in `webapiB`.![Finally, the API exposed in webAPI](docs/image-expose-api.png "Finally, the API exposed in webAPI")
@@ -68,22 +69,36 @@ mvn spring-boot:run
 ### Access the Web API
 We could use Postman to simulate a Web APP to send a request to a Web API.
 
-**NOTE**: 
-1. You can use [resource server password credentials] to get access token.
-1. The `aud` in access token should be the current Web API.
-
-```http request
-GET /webapiB HTTP/1.1
-Authorization: Bearer eyJ0eXAiO ... 0X2tnSQLEANnSPHY0gKcgw
-```
-```http request
-GET /user HTTP/1.1
-Authorization: Bearer eyJ0eXAiO ... 0X2tnSQLEANnSPHY0gKcgw
-```
-
 ### Check the authentication and authorization
-1. Access `http://localhost:<your-Configured-server-port>/webapiB` link: success.
-2. Access `http://localhost:<your-Configured-server-port>/user` link: fail with error message.
+- Web API B response successfully.
+
+1. Get access-token:
+```shell script
+curl -H "Content-Type: application/x-www-form-urlencoded" -d 'grant_type=password&client_id=<web-apiB-client-id>&scope=<app-id-uri>/Obo.WebApiB.ExampleScope&client_secret=<web-apiB-client-secret>&username=<username>&password=<password>' 'https://login.microsoftonline.com/organizations/oauth2/v2.0/token'
+```
+2. Access endpoint by access-token:
+```shell script
+curl localhost:8082/webapiB -H "Authorization: Bearer <access-token>"
+```
+3. Verify response:
+```text
+Response from webApiB.
+```
+
+- Web API B response failed.
+
+1. Get access-token:
+```shell script
+curl -H "Content-Type: application/x-www-form-urlencoded" -d 'grant_type=password&client_id=<web-apiB-client-id>&scope=User.Read&client_secret=<web-apiB-client-secret>&username=<username>&password=<password>' 'https://login.microsoftonline.com/organizations/oauth2/v2.0/token'
+```
+2. Access endpoint by access-token:
+```shell script
+curl localhost:8082/user -H "Authorization: Bearer <access-token>" -I
+```
+3. Verify response:
+```text
+error:401
+```
 
 ## Troubleshooting
 

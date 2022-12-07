@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 package com.azure.spring.sample.storage.resource;
 
 import org.slf4j.Logger;
@@ -13,33 +16,31 @@ import java.io.OutputStream;
 
 @Component
 public class SampleDataInitializer implements CommandLineRunner {
-    final static Logger logger = LoggerFactory.getLogger(SampleDataInitializer.class);
-
+    static final String BLOB_RESOURCE_PATTERN = "azure-blob://%s/%s";
+    private static final Logger logger = LoggerFactory.getLogger(SampleDataInitializer.class);
     private final ResourceLoader resourceLoader;
-
     private final String containerName;
-    public SampleDataInitializer(@Value("${spring.cloud.azure.storage.blob.container-name}") String containerName,
-                          ResourceLoader resourceLoader) {
+
+    public SampleDataInitializer(@Value("${spring.cloud.azure.storage.blob.container-name}") String containerName, ResourceLoader resourceLoader) {
         this.containerName = containerName;
         this.resourceLoader = resourceLoader;
     }
 
     /**
      * This is used to initialize some data in Azure Storage Blob.
-     * So users can use `curl -XGET http://localhost:8080/blob/getFileNamesWithProtocolResolver` to test
-     * AzureStorageBlobProtocolResolver without initializing data.
+     * So users can use `curl -XGET http://localhost:8080/blob` to test
+     * {@link com.azure.spring.cloud.core.resource.AzureStorageBlobProtocolResolver} without initializing data.
      */
     @Override
     public void run(String... args) throws Exception {
-
         logger.info("StorageApplication data initialization begin ...");
         for (int i = 0; i < 10; i++) {
-            String fileName = "fileName" + i;
-            String data = "data" + i;
-            Resource storageBlobResource = resourceLoader.getResource("azure-blob://" +containerName+"/" + fileName + ".txt");
+            String fileName = "file" + i + ".txt";
+            Resource storageBlobResource = resourceLoader.getResource(String.format(BLOB_RESOURCE_PATTERN, containerName, fileName));
             try (OutputStream os = ((WritableResource) storageBlobResource).getOutputStream()) {
+                String data = "data" + i;
                 os.write(data.getBytes());
-                logger.info("write data to container={}, fileName={}.txt", containerName, fileName);
+                logger.info("write data to container={}, fileName={}", containerName, fileName);
             }
         }
         logger.info("StorageApplication data initialization end ...");

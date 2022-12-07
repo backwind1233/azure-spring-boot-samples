@@ -1,6 +1,16 @@
-# Spring Cloud Azure Starter Key Vault Secrets Sample 
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-key-vault
+name: Loading Secrets From Azure Key Vault to Property Source in Spring Boot Application
+description: This sample demonstrates how to load secrets from Azure Key Vault to PropertySource in Spring Boot application.
+---
 
-This sample illustrates the usage of `spring-cloud-azure-starter-keyvault-secrets`. To learn all features, please refer to [reference doc](https://microsoft.github.io/spring-cloud-azure/docs/4.0.0-beta.2/reference/html/index.html).
+# Loading Secrets From Azure Key Vault to Property Source in Spring Boot Application
+
+This sample demonstrates how to load secrets from Azure Key Vault to PropertySource. [Link to reference doc](https://microsoft.github.io/spring-cloud-azure/4.2.0/reference/html/index.html).
 
 ## What You Will Build
 
@@ -128,7 +138,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.

@@ -1,4 +1,14 @@
-# Spring Boot application with Azure Active Directory
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-active-directory
+name: Developing a Spring Boot Web Application Supports Login by Azure Active Directory Account
+description: This sample demonstrates how to develop a Spring Boot web application supports login by Azure Active Directory account.
+---
+
+# Developing a Spring Boot Web Application Supports Login by Azure Active Directory Account
 
 ## What You Need
 

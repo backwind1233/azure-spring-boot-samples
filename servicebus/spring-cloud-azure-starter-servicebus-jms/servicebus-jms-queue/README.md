@@ -1,4 +1,14 @@
-# Sample for Spring JMS with Azure Service Bus Queue Spring Cloud client library for Java 
+---
+page_type: sample
+languages:
+- java
+products:
+- azure-service-bus
+name: Sending and Receiving Message by Azure Service Bus (Queue) And Jms in Spring Boot Application
+description: This sample demonstrates how to send and receive message by Azure Service Bus (queue) and JMS in Spring Boot application.
+---
+
+# Sending and Receiving Message by Azure Service Bus (Queue) And Jms in Spring Boot Application
 
 This sample project demonstrates how to use Spring JMS for Azure Service Bus Queue via Spring Boot Starter `spring-cloud-azure-starter-servicebus-jms`.
 
@@ -124,7 +134,7 @@ source ./terraform/setup_env.sh
 #### Run with Powershell
 
 ```shell
-. terraform\setup_env.ps1
+terraform\setup_env.ps1
 ```
 
 If you want to run the sample in debug mode, you can save the output value.
